@@ -5,13 +5,15 @@ public class playerMovement : MonoBehaviour
 
     public Rigidbody rb;
 
-    public float forwardForce = 1000f;
-    public float sidewaysForce = 3000f;
+    public float forwardForce = 50000f;
+    public float sidewaysForce = 100f;
 
     // Start is called before the first tick update
     void Start()
     {
-        //rb.AddForce(0, 200, 500);
+        rb.AddForce(11250 * Time.deltaTime, 0, 0);
+        rb.AddForce(25000 * Time.deltaTime, 0, 0);
+        forwardForce = 50000f;
     }
 
     // Update is called once per tick
@@ -21,11 +23,11 @@ public class playerMovement : MonoBehaviour
 
         if (Input.GetKey("a"))
         {
-            rb.AddForce(-sidewaysForce * Time.deltaTime, 0, 0); 
+            rb.AddForce(-sidewaysForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange); 
         }
         if (Input.GetKey("d"))
         {
-            rb.AddForce(sidewaysForce * Time.deltaTime, 0, 0); 
+            rb.AddForce(sidewaysForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange); 
         }
     }
 }
