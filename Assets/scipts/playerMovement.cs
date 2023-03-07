@@ -7,18 +7,12 @@ public class playerMovement : MonoBehaviour
 
     public float forwardForce = 50000f;
     public float sidewaysForce = 100f;
-
-    // Start is called before the first tick update
-    void Start()
-    {
-        rb.AddForce(11250 * Time.deltaTime, 0, 0);
-        rb.AddForce(25000 * Time.deltaTime, 0, 0);
-        forwardForce = 50000f;
-    }
+    public bool jumpAvailable = false;
 
     // Update is called once per tick
-    void Update()
+    void FixedUpdate()
     {
+        forwardForce = 50000f;
         rb.AddForce(0, 0, forwardForce * Time.deltaTime);
 
         if (Input.GetKey("a"))
@@ -29,6 +23,11 @@ public class playerMovement : MonoBehaviour
         {
             rb.AddForce(sidewaysForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange); 
         }
+        if (jumpAvailable && Input.GetKey(KeyCode.Space)) 
+        {
+            jumpAvailable = false;
+            rb.AddForce(0, 200 * Time.deltaTime, 0);
+        }        
     }
 }
 
