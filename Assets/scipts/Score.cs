@@ -12,6 +12,6 @@ public class Score : MonoBehaviour
     {
         //score = player.position.z.ToString();
         score = player.position.z;
-        scoreText.text = $"{score.ToString("0")} points";
+        scoreText.text = $"{score.ToString("0")} meters";
     }
 }
