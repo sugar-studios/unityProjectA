@@ -44,6 +44,7 @@
      <Compile Include="Assets\scipts\LoadNextLevel.cs" />
      <Compile Include="Assets\scipts\LevelTrigger.cs" />
      <Compile Include="Assets\scipts\titleFunctions.cs" />
+     <Compile Include="Assets\scipts\KeyBinds.cs" />
      <None Include="Assets\fonts\roboto\LICENSE.txt" />
     <Reference Include="UnityEngine">
         <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.19f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>

@@ -2,15 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class titleFunctions : MonoBehaviour
 {
     public GameObject arrowImage;
     public Vector3 arrowPos;
-    public static KeyCode KeyRight =  KeyCode.A;
-    public static KeyCode KeyLeft =  KeyCode.D;
-    public static KeyCode KeyDown =  KeyCode.S;
-    public static KeyCode KeyJump =  KeyCode.Space;
+
 
     public void StartGame()
     {

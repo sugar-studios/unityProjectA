@@ -15,19 +15,19 @@ public class playerMovement : MonoBehaviour
         forwardForce = 50000f;
         rb.AddForce(0, 0, forwardForce * Time.deltaTime);
 
-        if (Input.GetKey(titleFunctions.KeyLeft))
+        if (Input.GetKey(KeyBinds.leftKey))
         {
             rb.AddForce(-sidewaysForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange); 
         }
-        if (Input.GetKey(titleFunctions.KeyRight))
+        if (Input.GetKey(KeyBinds.rightKey))
         {
             rb.AddForce(sidewaysForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange); 
         }
-        if (jumpAvailable && Input.GetKey(KeyCode.Space)) 
-        {
-            jumpAvailable = false;
-            rb.AddForce(0, 200 * Time.deltaTime, 0);
-        }        
+        //if (jumpAvailable && Input.GetKey(KeyCode.Space)) 
+        //{
+        //    jumpAvailable = false;
+        //    rb.AddForce(0, 200 * Time.deltaTime, 0);
+        //}        
     }
 }
 
