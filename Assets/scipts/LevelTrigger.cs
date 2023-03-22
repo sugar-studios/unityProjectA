@@ -5,7 +5,7 @@ public class LevelTrigger : MonoBehaviour
 {
     public GameManger gameManger;
 
-    void OnTriggerEnter ()
+    private void OnTriggerEnter ()
     {
         gameManger.NextLevel();
     }

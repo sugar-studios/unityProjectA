@@ -15,6 +15,10 @@ public class KeyBinds : MonoBehaviour
 
     private GameObject currentKey;
 
+    public GameObject MainMenu;
+
+    public GameObject ControlsMenu;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -56,9 +60,9 @@ public class KeyBinds : MonoBehaviour
         currentKey = clicked;
     }
 
-
     public void saveButtons(Text text)
     {
+            text.text = "";
             if (left.text == right.text || left.text == jump.text || left.text == down.text || right.text == jump.text || right.text == down.text || jump.text == down.text)
             {
                text.text = "invalid inputs (Make sure there are no conflicting binds)";
@@ -66,16 +70,19 @@ public class KeyBinds : MonoBehaviour
             }
             else
             {
-                text.text = "";
                 rightKey = keys["Right"];
                 leftKey = keys["Left"];
                 jumpKey = keys["Space"];
                 downKey = keys["Down"];
-                Debug.Log(keys["Right"]);
-                Debug.Log(keys["Left"]);
-                Debug.Log(keys["Space"]);
-                Debug.Log(keys["Down"]);
+
+                GoToMain();
             }
         
+    }
+
+        public void GoToMain()
+    {
+        MainMenu.SetActive(true);
+        ControlsMenu.SetActive(false);
     }
 }

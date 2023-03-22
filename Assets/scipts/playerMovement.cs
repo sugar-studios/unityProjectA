@@ -23,11 +23,16 @@ public class playerMovement : MonoBehaviour
         {
             rb.AddForce(sidewaysForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange); 
         }
-        //if (jumpAvailable && Input.GetKey(KeyCode.Space)) 
-        //{
-        //    jumpAvailable = false;
-        //    rb.AddForce(0, 200 * Time.deltaTime, 0);
-        //}        
+        if (Input.GetKey(KeyBinds.jumpKey)) 
+        {
+            if (jumpAvailable == true)
+            {
+                Debug.Log("JUMP");
+                rb.AddForce(0, 50000 * Time.deltaTime, 0);
+                jumpAvailable = false;
+            }
+                
+        }        
     }
 }
 

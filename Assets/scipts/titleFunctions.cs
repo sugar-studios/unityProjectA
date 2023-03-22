@@ -7,6 +7,11 @@ using UnityEngine.UI;
 public class titleFunctions : MonoBehaviour
 {
     public GameObject arrowImage;
+
+    public GameObject MainMenu;
+
+    public GameObject ControlsMenu;
+
     public Vector3 arrowPos;
 
 
@@ -15,10 +20,30 @@ public class titleFunctions : MonoBehaviour
         SceneManager.LoadScene(1);
     }
 
+
+    public void GoToControls()
+    {
+        ControlsMenu.SetActive(true);
+        MainMenu.SetActive(false);
+    }
+
+    public void GoToMain()
+    {
+        MainMenu.SetActive(true);
+        ControlsMenu.SetActive(false);
+    }
+
+
+    private void Start() 
+    {
+        MainMenu.SetActive(true);
+        ControlsMenu.SetActive(false);
+    }
+
     private void FixedUpdate()
     {
         Vector3 mousePos = Input.mousePosition;
-        if (mousePos.y > 222f)
+        if (mousePos.y > 250f)
         {
             arrowPos = arrowImage.transform.position;
             arrowPos.y = 290;

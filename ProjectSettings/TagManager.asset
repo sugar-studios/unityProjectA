@@ -9,6 +9,7 @@ TagManager:
   - ObstacleTall
   - Score
   - UIArrow
+  - Void
   layers:
   - Default
   - TransparentFX

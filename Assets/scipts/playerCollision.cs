@@ -29,19 +29,10 @@ public class playerCollision : MonoBehaviour
             
         }
     }   
-
-
-    void OnCollisionExit(Collision collisionInfo)
+    public void endGame()
     {
-        if (collisionInfo.collider.tag == "Ground")
-        {
-            rb = movement.GetComponent<Rigidbody>();
-            rb = movement.rb;
-            rb.drag = 1;
-            rb.AddForce(0, -5000 * Time.deltaTime, 0);
-            movement.enabled = false;
-            FindObjectOfType<GameManger>().EndGame();
-        }
+        rb.drag = 0.7f;
+        movement.enabled = false;
+        FindObjectOfType<GameManger>().EndGame();        
     }
-
 }
