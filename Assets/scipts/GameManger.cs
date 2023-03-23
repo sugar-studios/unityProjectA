@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManger : MonoBehaviour
 {
+    public playerMovement movement; 
     bool gameHasEnded = false;
 
     public float restartDelay = 1f;
@@ -31,6 +32,8 @@ public class GameManger : MonoBehaviour
 
     public void NextLevel()
     {
+        movement.enabled = false;
         nextLevelUI.SetActive(true);
+        
     }
 }
