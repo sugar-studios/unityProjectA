@@ -10,6 +10,8 @@ TagManager:
   - Score
   - UIArrow
   - Void
+  - TutorialText
+  - JumpCube
   layers:
   - Default
   - TransparentFX

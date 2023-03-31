@@ -6,13 +6,13 @@ using UnityEngine.UI;
 
 public class titleFunctions : MonoBehaviour
 {
-    public GameObject arrowImage;
 
     public GameObject MainMenu;
 
     public GameObject ControlsMenu;
 
-    public Vector3 arrowPos;
+
+    double screenHeight = Screen.height;
 
 
     public void StartGame()
@@ -38,23 +38,6 @@ public class titleFunctions : MonoBehaviour
     {
         MainMenu.SetActive(true);
         ControlsMenu.SetActive(false);
-    }
-
-    private void FixedUpdate()
-    {
-        Vector3 mousePos = Input.mousePosition;
-        if (mousePos.y > 250f)
-        {
-            arrowPos = arrowImage.transform.position;
-            arrowPos.y = 290;
-            arrowImage.transform.position = new Vector3(arrowPos.x, arrowPos.y, arrowPos.z);
-        }
-        else
-        {
-            arrowPos = arrowImage.transform.position;
-            arrowPos.y = 235;
-            arrowImage.transform.position = new Vector3(arrowPos.x, arrowPos.y, arrowPos.z);
-        }
     }
 }
 
