@@ -9,6 +9,7 @@ public class playerMovement : MonoBehaviour
     public float forwardForce = 5000f;
     public float sidewaysForce = 75;
     public static bool jumpAvailable = false;
+    public static bool fallAvailable = false;
 
     private Vector3 velocity;
 
@@ -67,7 +68,7 @@ public class playerMovement : MonoBehaviour
         rb.AddForce(0, 0, forwardForce * Time.deltaTime);
 
         checkSpeed(rb);
-
+        #region move right 
         if (Input.GetKey(KeyBinds.leftKey))
         {
             moving = true;
@@ -78,6 +79,9 @@ public class playerMovement : MonoBehaviour
             }
             rb.AddForce(-sidewaysForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
         }
+        #endregion
+
+        #region move left
         if (Input.GetKey(KeyBinds.rightKey))
         {
             moving = true;
@@ -88,10 +92,14 @@ public class playerMovement : MonoBehaviour
             }
             rb.AddForce(sidewaysForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange); 
         }
+        #endregion
+
         if (!Input.GetKey(KeyBinds.rightKey) && !Input.GetKey(KeyBinds.leftKey))
         {
             moving = false;
         }
+
+        #region jump
         if (Input.GetKey(KeyBinds.jumpKey)) 
         {
             if (jumpAvailable == true)
@@ -100,6 +108,32 @@ public class playerMovement : MonoBehaviour
                 rb.AddForce(0, 500*Time.deltaTime, 0, ForceMode.VelocityChange);
             }       
         }
+        if (Input.GetKey(KeyBinds.jumpKey))
+        {
+            if (jumpAvailable == true)
+            {
+                jumpAvailable = false;
+                rb.AddForce(0, 500 * Time.deltaTime, 0, ForceMode.VelocityChange);
+            }
+        }
+        #endregion
+
+        #region fall
+        if (Input.GetKey(KeyBinds.downKey))
+        {
+            if (fallAvailable == true)
+            {
+                fallAvailable = false;
+                if (Physics.Raycast(transform.position, Vector3.down, out var hit))
+                {
+                    transform.position = hit.point;
+                }
+                Debug.Log("fall");
+            }
+        }
+        #endregion
+
+
 
         checkSpeed(rb);
 

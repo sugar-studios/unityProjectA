@@ -12,6 +12,7 @@ TagManager:
   - Void
   - TutorialText
   - JumpCube
+  - FallCube
   layers:
   - Default
   - TransparentFX
