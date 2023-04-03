@@ -10,12 +10,13 @@ public class playerMovement : MonoBehaviour
     public float sidewaysForce = 75;
     public static bool jumpAvailable = false;
     public static bool fallAvailable = false;
+    public ParticleSystem cloudBurst;
 
     private Vector3 velocity;
 
     private bool moving;
 
-
+    #region checkSpeed
     private void checkSpeed(Rigidbody rb)
     {
         velocity = rb.velocity;
@@ -48,6 +49,7 @@ public class playerMovement : MonoBehaviour
         rb.velocity = new Vector3(velocity.x, velocity.y, velocity.z);
 
     }
+    #endregion
 
     private void Update()
     {
@@ -94,10 +96,12 @@ public class playerMovement : MonoBehaviour
         }
         #endregion
 
+        #region not-moving
         if (!Input.GetKey(KeyBinds.rightKey) && !Input.GetKey(KeyBinds.leftKey))
         {
             moving = false;
         }
+        #endregion
 
         #region jump
         if (Input.GetKey(KeyBinds.jumpKey)) 
@@ -127,8 +131,10 @@ public class playerMovement : MonoBehaviour
                 if (Physics.Raycast(transform.position, Vector3.down, out var hit))
                 {
                     transform.position = hit.point;
+                    cloudBurst.Play();
+                    ParticleSystem.EmissionModule em = cloudBurst.emission;
+                    em.enabled = true;
                 }
-                Debug.Log("fall");
             }
         }
         #endregion
