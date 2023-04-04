@@ -1,23 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.Rendering;
 
 public class KeyBinds : MonoBehaviour
 {
 
     private Dictionary<string, KeyCode> keys = new Dictionary<string, KeyCode>();
 
-    public Text right, left, down, jump;
+    public Text right, left, down, jump, leftDash, rightDash;
 
-    public static KeyCode rightKey, leftKey, jumpKey, downKey;
+    public static KeyCode rightKey, leftKey, jumpKey, downKey, leftDashKey, rightDashKey;
 
     private GameObject currentKey;
 
     public GameObject MainMenu;
 
     public GameObject ControlsMenu;
+
+    public static bool valid = true;
 
     // Start is called before the first frame update
     void Start()
@@ -26,16 +30,24 @@ public class KeyBinds : MonoBehaviour
         keys.Add("Left", KeyCode.A);
         keys.Add("Down", KeyCode.S);
         keys.Add("Space", KeyCode.Space);
+        keys.Add("LeftDash", KeyCode.Z);
+        keys.Add("RightDash", KeyCode.C);
 
         rightKey = keys["Right"];
         leftKey = keys["Left"];
         jumpKey = keys["Space"];
         downKey = keys["Down"];
+        leftDashKey = keys["LeftDash"];
+        rightDashKey = keys["RightDash"];
 
         jump.text = keys["Space"].ToString();
         down.text = keys["Down"].ToString();
         left.text = keys["Left"].ToString();
         right.text = keys["Right"].ToString();
+        leftDash.text = keys["LeftDash"].ToString();
+        rightDash.text = keys["RightDash"].ToString();
+
+        
 
     }
 
@@ -62,22 +74,68 @@ public class KeyBinds : MonoBehaviour
 
     public void saveButtons(Text text)
     {
-            text.text = "";
-            if (left.text == right.text || left.text == jump.text || left.text == down.text || right.text == jump.text || right.text == down.text || jump.text == down.text)
+        text.text = "";
+        valid = true;
+        string[] keysArray = { right.text, left.text, down.text, jump.text, leftDash.text, rightDash.text };
+        for (int i = 0; i < keysArray.Length; i++)
+        {
+            for (int j = 0; j < keysArray.Length; j++)
             {
-               text.text = "invalid inputs (Make sure there are no conflicting binds)";
-               return;
+                int currentIndex = i;
+                if (keysArray.ElementAt(i).ToString() == keysArray.ElementAt(j).ToString())
+                {
+                    Debug.Log(i.ToString() + " " + j.ToString());
+                    if (j == i)
+                    {
+                        continue;
+                    }
+                    else 
+                    {
+                        valid = false;
+                        break;
+                    }
+                }
             }
-            else
-            {
-                rightKey = keys["Right"];
-                leftKey = keys["Left"];
-                jumpKey = keys["Space"];
-                downKey = keys["Down"];
 
-                GoToMain();
+            if (valid == false)
+            {
+                break;
             }
-        
+        }
+        /*if (left.text == right.text || left.text == jump.text || left.text == down.text || right.text == jump.text || right.text == down.text || jump.text == down.text)
+        {
+           text.text = "invalid inputs (Make sure there are no conflicting binds)";
+           return;
+        }
+        else
+        {
+            rightKey = keys["Right"];
+            leftKey = keys["Left"];
+            jumpKey = keys["Space"];
+            downKey = keys["Down"];
+            leftDashKey = keys["LeftDash"];
+            rightDashKey = keys["RightDash"];
+
+        GoToMain();
+        }
+        */
+        if (valid == false)
+        {
+            text.text = "invalid inputs (Make sure there are no conflicting binds)";
+            return;
+        }
+        else
+        {
+            rightKey = keys["Right"];
+            leftKey = keys["Left"];
+            jumpKey = keys["Space"];
+            downKey = keys["Down"];
+            leftDashKey = keys["LeftDash"];
+            rightDashKey = keys["RightDash"];
+
+            GoToMain();
+        }
+
     }
 
         public void GoToMain()

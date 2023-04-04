@@ -129,11 +129,13 @@ public class playerMovement : MonoBehaviour
             {
                 fallAvailable = false;
                 if (Physics.Raycast(transform.position, Vector3.down, out var hit))
-                {
-                    transform.position = hit.point;
+                { 
+                    cloudBurst.transform.position = this.transform.position;
+                    cloudBurst.transform.eulerAngles = new Vector3(-90, 0, 0);
                     cloudBurst.Play();
                     ParticleSystem.EmissionModule em = cloudBurst.emission;
                     em.enabled = true;
+                    transform.position = hit.point;
                 }
             }
         }
