@@ -9,8 +9,6 @@ public class FallTrigger : MonoBehaviour
     private void OnTriggerEnter()
     {
         playerMovement.fallAvailable = true;
-        Debug.Log("DESTROY");
-        Debug.Log(playerMovement.fallAvailable);
         Destroy(fall);
     }
 }

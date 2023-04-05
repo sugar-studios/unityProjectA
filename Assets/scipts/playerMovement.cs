@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class playerMovement : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class playerMovement : MonoBehaviour
     public float sidewaysForce = 75;
     public static bool jumpAvailable = false;
     public static bool fallAvailable = false;
+    public static bool dashAvailable = false;
+    private Vector3 position;
     public ParticleSystem cloudBurst;
 
     private Vector3 velocity;
@@ -51,6 +54,17 @@ public class playerMovement : MonoBehaviour
     }
     #endregion
 
+    #region DashParticles
+    private void CloudParticles(Vector3 rotation, ParticleSystem clouds)
+    {      
+        clouds.transform.eulerAngles = rotation;
+        clouds.transform.position = this.transform.position;
+        clouds.Play();
+        clouds.transform.position = this.transform.position;
+    }
+    #endregion
+
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.LeftControl))
@@ -59,6 +73,7 @@ public class playerMovement : MonoBehaviour
             KeyBinds.rightKey = KeyCode.D;
             KeyBinds.leftKey = KeyCode.A;
             KeyBinds.jumpKey = KeyCode.Space;
+            KeyBinds.dashKey = KeyCode.LeftShift;
         }
     }
 
@@ -76,7 +91,7 @@ public class playerMovement : MonoBehaviour
             moving = true;
             if (velocity.x > -1)
             {
-                velocity.x = velocity.x/16;
+                velocity.x = velocity.x / 16;
                 rb.velocity = new Vector3(velocity.x, velocity.y, velocity.z);
             }
             rb.AddForce(-sidewaysForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
@@ -92,7 +107,7 @@ public class playerMovement : MonoBehaviour
                 velocity.x = velocity.x / 16;
                 rb.velocity = new Vector3(velocity.x, velocity.y, velocity.z);
             }
-            rb.AddForce(sidewaysForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange); 
+            rb.AddForce(sidewaysForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
         }
         #endregion
 
@@ -104,13 +119,13 @@ public class playerMovement : MonoBehaviour
         #endregion
 
         #region jump
-        if (Input.GetKey(KeyBinds.jumpKey)) 
+        if (Input.GetKey(KeyBinds.jumpKey))
         {
             if (jumpAvailable == true)
             {
                 jumpAvailable = false;
-                rb.AddForce(0, 500*Time.deltaTime, 0, ForceMode.VelocityChange);
-            }       
+                rb.AddForce(0, 500 * Time.deltaTime, 0, ForceMode.VelocityChange);
+            }
         }
         if (Input.GetKey(KeyBinds.jumpKey))
         {
@@ -129,15 +144,44 @@ public class playerMovement : MonoBehaviour
             {
                 fallAvailable = false;
                 if (Physics.Raycast(transform.position, Vector3.down, out var hit))
-                { 
-                    cloudBurst.transform.position = this.transform.position;
-                    cloudBurst.transform.eulerAngles = new Vector3(-90, 0, 0);
-                    cloudBurst.Play();
+                {
+                    CloudParticles(new Vector3(-90, 0, 0), cloudBurst);
                     ParticleSystem.EmissionModule em = cloudBurst.emission;
                     em.enabled = true;
                     transform.position = hit.point;
                 }
             }
+        }
+        #endregion
+
+        #region dash
+        if (Input.GetKey(KeyBinds.dashKey))
+        {
+            if (dashAvailable == true)
+            {
+                GetComponent<Renderer>().material.color = new Color32(240, 40, 40, 1);
+                if (Input.GetKey(KeyBinds.leftKey))
+                {
+                    CloudParticles(new Vector3(-180, 0, 0), cloudBurst);
+                    dashAvailable = false;
+                    position = transform.position;
+                    position.x -= 7;
+                    transform.position = position;
+                }
+
+                if (Input.GetKey(KeyBinds.rightKey))
+                {
+                    CloudParticles(new Vector3(-180, 0, 0), cloudBurst);
+                    dashAvailable = false;
+                    position = transform.position;
+                    position.x += 7;
+                    transform.position = position;
+
+                }
+            }
+        } else
+        {
+            GetComponent<MeshRenderer>().material.color = new Color32(197, 49, 49, 1);
         }
         #endregion
 

@@ -13,6 +13,7 @@ TagManager:
   - TutorialText
   - JumpCube
   - FallCube
+  - Dash Cube
   layers:
   - Default
   - TransparentFX

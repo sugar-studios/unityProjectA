@@ -9,7 +9,6 @@ public class jumpTrigger : MonoBehaviour
    private void OnTriggerEnter()
     {
         playerMovement.jumpAvailable = true;
-        Debug.Log("DESTROY");
         Destroy(jump);
     }
 }

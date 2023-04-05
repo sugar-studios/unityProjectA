@@ -11,9 +11,9 @@ public class KeyBinds : MonoBehaviour
 
     private Dictionary<string, KeyCode> keys = new Dictionary<string, KeyCode>();
 
-    public Text right, left, down, jump, leftDash, rightDash;
+    public Text right, left, down, jump, dash;
 
-    public static KeyCode rightKey, leftKey, jumpKey, downKey, leftDashKey, rightDashKey;
+    public static KeyCode rightKey, leftKey, jumpKey, downKey, dashKey;
 
     private GameObject currentKey;
 
@@ -30,22 +30,22 @@ public class KeyBinds : MonoBehaviour
         keys.Add("Left", KeyCode.A);
         keys.Add("Down", KeyCode.S);
         keys.Add("Space", KeyCode.Space);
-        keys.Add("LeftDash", KeyCode.Z);
-        keys.Add("RightDash", KeyCode.C);
+        keys.Add("Dash", KeyCode.LeftShift);
+
 
         rightKey = keys["Right"];
         leftKey = keys["Left"];
         jumpKey = keys["Space"];
         downKey = keys["Down"];
-        leftDashKey = keys["LeftDash"];
-        rightDashKey = keys["RightDash"];
+        dashKey = keys["Dash"];
+
 
         jump.text = keys["Space"].ToString();
         down.text = keys["Down"].ToString();
         left.text = keys["Left"].ToString();
         right.text = keys["Right"].ToString();
-        leftDash.text = keys["LeftDash"].ToString();
-        rightDash.text = keys["RightDash"].ToString();
+        dash.text = keys["Dash"].ToString();
+
 
         
 
@@ -76,7 +76,7 @@ public class KeyBinds : MonoBehaviour
     {
         text.text = "";
         valid = true;
-        string[] keysArray = { right.text, left.text, down.text, jump.text, leftDash.text, rightDash.text };
+        string[] keysArray = { right.text, left.text, down.text, jump.text, dash.text};
         for (int i = 0; i < keysArray.Length; i++)
         {
             for (int j = 0; j < keysArray.Length; j++)
@@ -102,23 +102,6 @@ public class KeyBinds : MonoBehaviour
                 break;
             }
         }
-        /*if (left.text == right.text || left.text == jump.text || left.text == down.text || right.text == jump.text || right.text == down.text || jump.text == down.text)
-        {
-           text.text = "invalid inputs (Make sure there are no conflicting binds)";
-           return;
-        }
-        else
-        {
-            rightKey = keys["Right"];
-            leftKey = keys["Left"];
-            jumpKey = keys["Space"];
-            downKey = keys["Down"];
-            leftDashKey = keys["LeftDash"];
-            rightDashKey = keys["RightDash"];
-
-        GoToMain();
-        }
-        */
         if (valid == false)
         {
             text.text = "invalid inputs (Make sure there are no conflicting binds)";
@@ -130,8 +113,7 @@ public class KeyBinds : MonoBehaviour
             leftKey = keys["Left"];
             jumpKey = keys["Space"];
             downKey = keys["Down"];
-            leftDashKey = keys["LeftDash"];
-            rightDashKey = keys["RightDash"];
+            dashKey = keys["Dash"];
 
             GoToMain();
         }
