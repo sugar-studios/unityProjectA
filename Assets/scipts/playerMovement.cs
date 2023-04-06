@@ -1,6 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
+using static Unity.VisualScripting.Member;
 
 public class playerMovement : MonoBehaviour
 {
@@ -12,7 +13,9 @@ public class playerMovement : MonoBehaviour
     public static bool jumpAvailable = false;
     public static bool fallAvailable = false;
     public static bool dashAvailable = false;
-    private Vector3 position;
+    public static bool holdingDash = false;
+    private Vector3 NewPosition;
+    private Vector3 PreviousPosition;
     public ParticleSystem cloudBurst;
 
     private Vector3 velocity;
@@ -64,7 +67,46 @@ public class playerMovement : MonoBehaviour
     }
     #endregion
 
+    #region Dash
+    private void Dash(int dashDirection)
+    {
+        dashAvailable = false;
+        
+        PreviousPosition = transform.position;
+        NewPosition = PreviousPosition;
+        NewPosition.x = 5 * dashDirection;
 
+        //raycast check
+        RaycastHit hit;
+        Vector3 fromPosition = PreviousPosition;
+        Vector3 toPosition = NewPosition;
+        Vector3 direction = toPosition - fromPosition;
+        if (Physics.Raycast(PreviousPosition, direction, out hit))
+        {
+            if (hit.collider.gameObject.tag == "Obstacle")
+            {
+                FindObjectOfType<playerCollision>().killPlayer();
+            }
+        }
+
+
+        transform.position = NewPosition;
+        
+
+    }
+    #endregion
+
+    #region SatusReset
+    private void Start()
+    {
+        jumpAvailable = false;
+        fallAvailable = false;
+        dashAvailable = false;
+        holdingDash = false;
+    }
+    #endregion
+
+    #region KeyOveride
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.LeftControl))
@@ -76,8 +118,9 @@ public class playerMovement : MonoBehaviour
             KeyBinds.dashKey = KeyCode.LeftShift;
         }
     }
+    #endregion
 
-    // Update is called once per tick
+    #region MainLoop
     void FixedUpdate()
     {
         velocity = rb.velocity;
@@ -159,29 +202,46 @@ public class playerMovement : MonoBehaviour
         {
             if (dashAvailable == true)
             {
-                GetComponent<Renderer>().material.color = new Color32(240, 40, 40, 1);
-                if (Input.GetKey(KeyBinds.leftKey))
+                if (holdingDash == false)
                 {
-                    CloudParticles(new Vector3(-180, 0, 0), cloudBurst);
-                    dashAvailable = false;
-                    position = transform.position;
-                    position.x -= 7;
-                    transform.position = position;
-                }
 
-                if (Input.GetKey(KeyBinds.rightKey))
-                {
-                    CloudParticles(new Vector3(-180, 0, 0), cloudBurst);
-                    dashAvailable = false;
-                    position = transform.position;
-                    position.x += 7;
-                    transform.position = position;
+                    GetComponent<Renderer>().material.color = new Color32(240, 40, 40, 1);
+                    if (Input.GetKey(KeyBinds.leftKey))
+                    {
+                        CloudParticles(new Vector3(-180, 0, 0), cloudBurst);
+                        Dash(-1);
+                        if (Input.GetKey(KeyBinds.leftKey))
+                        {
+                            holdingDash = true;
+                        }
+                    }
 
+                    if (Input.GetKey(KeyBinds.rightKey))
+                    {
+                        CloudParticles(new Vector3(-180, 0, 0), cloudBurst);
+                        Dash(1);
+                        if (Input.GetKey(KeyBinds.rightKey))
+                        {
+                            holdingDash = true;
+                        }
+                    }
                 }
             }
         } else
         {
             GetComponent<MeshRenderer>().material.color = new Color32(197, 49, 49, 1);
+        }
+
+        if (holdingDash) 
+        {
+            if (Input.GetKey(KeyBinds.rightKey) || Input.GetKey(KeyBinds.leftKey))
+            {
+                holdingDash = true;
+            }
+            else 
+            {
+                holdingDash = false;
+            }
         }
         #endregion
 
@@ -191,4 +251,5 @@ public class playerMovement : MonoBehaviour
 
     }
 }
+#endregion
 

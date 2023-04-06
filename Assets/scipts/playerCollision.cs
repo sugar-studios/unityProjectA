@@ -19,16 +19,20 @@ public class playerCollision : MonoBehaviour
         rb.AddExplosionForce(1500, exploPos, 5, 3);
         rb.velocity = new Vector3(Convert.ToInt32(exploPos.x), Convert.ToInt32(exploPos.y), -10);
     }
+    public void killPlayer()
+    {
+        movement.enabled = false;
+        pushBackPlayer();
+        FindObjectOfType<GameManger>().EndGame();
+    }
 
 
     void OnCollisionEnter (Collision collisionInfo)
     {
         if (collisionInfo.collider.tag == "Obstacle")
         {
-            movement.enabled = false;
-            pushBackPlayer();
-            FindObjectOfType<GameManger>().EndGame();
-            
+
+            killPlayer();            
         }
     }   
     public void endGame()

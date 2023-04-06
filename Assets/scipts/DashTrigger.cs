@@ -9,8 +9,6 @@ public class DashTrigger : MonoBehaviour
     private void OnTriggerEnter()
     {
         playerMovement.dashAvailable = true;
-        Debug.Log("DESTROY");
-        Debug.Log(playerMovement.dashAvailable);
         Destroy(dash);
     }
 }

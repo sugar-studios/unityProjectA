@@ -13,7 +13,9 @@ public class GameManger : MonoBehaviour
     string right = KeyBinds.rightKey.ToString();
     string jump = KeyBinds.jumpKey.ToString();
     string down = KeyBinds.downKey.ToString();
+    string dash = KeyBinds.dashKey.ToString();
     public TMP_Text TutorialText;
+    public TMP_Text TutorialText2;
 
     void Start()
     {
@@ -29,6 +31,7 @@ public class GameManger : MonoBehaviour
                 break;
             case ("4"):
                 TutorialText.text = "After collecting a fall orb, use the " + down + " key to fastfall whilst midair";
+                TutorialText2.text = "After collecting the dash orb, use the " + dash + " key to charge a dash then use the left/right keys to dash\n(TIP:Hold shift when preparing to dash)";
                 break;
             case ("5"):
                 TutorialText.text = "Here we go!";
