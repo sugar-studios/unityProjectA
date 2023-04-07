@@ -14,8 +14,8 @@ public class playerMovement : MonoBehaviour
     public static bool fallAvailable = false;
     public static bool dashAvailable = false;
     public static bool holdingDash = false;
-    private Vector3 NewPosition;
-    private Vector3 PreviousPosition;
+    //private Vector3 NewPosition;
+   // private Vector3 PreviousPosition;
     public ParticleSystem cloudBurst;
 
     private Vector3 velocity;
@@ -71,7 +71,12 @@ public class playerMovement : MonoBehaviour
     private void Dash(int dashDirection)
     {
         dashAvailable = false;
-        
+
+        rb.drag = 3;
+        rb.AddForce(dashDirection * 15000 * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
+        rb.velocity = new Vector3(0, rb.velocity.y, rb.velocity.z);
+        rb.drag = 1;
+        /*
         PreviousPosition = transform.position;
         NewPosition = PreviousPosition;
         NewPosition.x = 5 * dashDirection;
@@ -89,8 +94,8 @@ public class playerMovement : MonoBehaviour
             }
         }
 
-
         transform.position = NewPosition;
+        */
         
 
     }
@@ -186,13 +191,19 @@ public class playerMovement : MonoBehaviour
             if (fallAvailable == true)
             {
                 fallAvailable = false;
-                if (Physics.Raycast(transform.position, Vector3.down, out var hit))
+                Debug.Log("fall");
+                /*if (Physics.Raycast(transform.position, Vector3.down, out var hit))
                 {
                     CloudParticles(new Vector3(-90, 0, 0), cloudBurst);
                     ParticleSystem.EmissionModule em = cloudBurst.emission;
                     em.enabled = true;
                     transform.position = hit.point;
                 }
+                */
+                CloudParticles(new Vector3(-90, 0, 0), cloudBurst);
+                ParticleSystem.EmissionModule em = cloudBurst.emission;
+                em.enabled = true;
+                rb.AddForce(0, -1500 * Time.deltaTime, forwardForce * Time.deltaTime, ForceMode.VelocityChange);
             }
         }
         #endregion
