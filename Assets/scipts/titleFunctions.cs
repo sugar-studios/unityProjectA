@@ -12,6 +12,7 @@ public class titleFunctions : MonoBehaviour
 
     public GameObject ControlsMenu;
 
+
     public Text errorMessage;
 
 
@@ -28,6 +29,8 @@ public class titleFunctions : MonoBehaviour
         {
             errorMessage.text = "There must be conflicting keybinds, fix then try again";
         }
+
+
         
     }
 

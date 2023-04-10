@@ -203,7 +203,7 @@ public class playerMovement : MonoBehaviour
                 CloudParticles(new Vector3(-90, 0, 0), cloudBurst);
                 ParticleSystem.EmissionModule em = cloudBurst.emission;
                 em.enabled = true;
-                rb.AddForce(0, -1500 * Time.deltaTime, forwardForce * Time.deltaTime, ForceMode.VelocityChange);
+                rb.AddForce(0, -1500 * Time.deltaTime, 0, ForceMode.VelocityChange);
             }
         }
         #endregion
