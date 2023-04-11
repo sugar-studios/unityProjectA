@@ -9,6 +9,7 @@ public class LoadNextLevel : MonoBehaviour
         switch (SceneManager.GetActiveScene().name)
         {
             case ("4"):
+                File.WriteAllText(Application.dataPath + "/Saves/tutorial.txt", "1");
                 SceneManager.LoadScene(0);
                 break;
             default:

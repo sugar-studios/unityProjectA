@@ -375,7 +375,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -183, y: -123}
+  m_AnchoredPosition: {x: -183, y: -106.5}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &243072337
@@ -444,7 +444,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1581380275}
         m_TargetAssemblyTypeName: titleFunctions, Assembly-CSharp
-        m_MethodName: GoToControls
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1061,7 +1061,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: How to Play
+  m_Text: Controls
 --- !u!222 &462943058
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3128,6 +3128,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MainMenu: {fileID: 371858363}
   ControlsMenu: {fileID: 1312576479}
+  editor: {fileID: 243072338}
+  editorText: {fileID: 1042993368}
   errorMessage: {fileID: 773598174}
 --- !u!4 &1581380276
 Transform:

@@ -12,8 +12,13 @@ public class titleFunctions : MonoBehaviour
 
     public GameObject ControlsMenu;
 
+    public Button editor;
+
+    public Text editorText;
 
     public Text errorMessage;
+
+    public static string tutorialPath;
 
 
     double screenHeight = Screen.height;
@@ -29,11 +34,7 @@ public class titleFunctions : MonoBehaviour
         {
             errorMessage.text = "There must be conflicting keybinds, fix then try again";
         }
-
-
-        
-    }
-
+     }
 
     public void GoToControls()
     {
@@ -54,6 +55,28 @@ public class titleFunctions : MonoBehaviour
     {
         MainMenu.SetActive(true);
         ControlsMenu.SetActive(false);
+        editor.interactable = false;
+        editorText.fontSize = 9;
+        editorText.text = "Finish tutorial to unlock Level Creator";
+
+        tutorialPath = Application.dataPath + "/Saves/tutorial.txt";
+
+        if (!File.Exists(tutorialPath))
+        {
+            File.WriteAllText(tutorialPath, "0");
+        }
+
+        string savedLevels = Application.dataPath + "/Saves/savedLevels.txt";
+
+        if (!File.Exists(savedLevels))
+        {
+            File.WriteAllText(savedLevels, "");
+        }
+
+    }
+    private void Update()
+    { 
+        if (File.ReadAllText(tutorialPath) == "1") { editor.interactable = true; editorText.text = "Level Creator"; editorText.fontSize = 14; }
     }
 }
 
